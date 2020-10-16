@@ -32,22 +32,32 @@ module RailsBootstrapHelpers::Helpers::OptionsHelper
   # Appends the given classes on the given options hash.
   #
   # It will look for both the "class" and :class key. This will create a new
-  # :class key in the given hash if neither exist.
+  # :class key in the given hash regardless
   #
   # @param options [Hash] hash of options to append the classes to
   # @param new_classes [Array<String>] the classes to append
   # @return options
   def append_class! (options, *new_classes)
     return options if new_classes.empty?
-    key = options.key?("class") ? "class" : :class
-    cls = options[key].to_s || ""
 
-    if cls.present? && new_classes.first.present?
-      cls << " "
-    end
+    # or symbolize_keys and have done..
 
-    cls << new_classes.join(" ")
-    options[key] = cls
+    # key = options.key?("class") ? "class" : :class
+    # cls = options[key].to_s || ""
+    #
+    # if cls.present? && new_classes.first.present?
+    #   cls << " "
+    # end
+    #
+    # cls << new_classes.join(" ")
+    # options[key] = cls
+    # options
+
+    cls = options.with_indifferent_access.fetch(:class, "").to_s
+    # merge new classes onto original, join with spaces for CSS
+    new_list = ([cls] + new_classes).join(" ")
+    options[:class] = new_list
     options
   end
+
 end

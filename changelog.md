@@ -1,5 +1,9 @@
 # Rails Bootstrap Helpers
 
+## Version 0.1.2
+
+* Rails 6/ruby2.7.2 (with bootstrap 2, I know..) fix for frozen string literal in options_helper#append_class! (side effect: always sets :class now)
+
 ## Version 0.1.0
 
 ### New/Changed Features
